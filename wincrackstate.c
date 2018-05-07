@@ -6,7 +6,11 @@
 #define RAND_RANGE(__n, __min, __max, __tmax) \
     (__min) + (long) ((double) ( (double) (__max) - (__min) + 1.0) * ((__n) / ((__tmax) + 1.0)))
 
-unsigned int state;
+static unsigned int state;
+
+static void winsrand(unsigned int seed) {
+    state = seed;
+}
 
 static unsigned int winrand() {
     const unsigned int a = 214013;
@@ -36,14 +40,15 @@ static char * gen(int len, char * token)
 
 int main() {
     char token[11];
-    unsigned int i = 0;
-    while (1) {
-        state = i;
+    unsigned int i;
+
+    do {
+        winsrand(i);
         gen(10, token);
         if (strcmp(token, "pgVp42QhP9") == 0) {
             printf("%d\n", i);
             return 0;
         }
-        i++;
-    }
+    } while (++i != 0);
+    printf("not found\n");
 }
