@@ -27,14 +27,15 @@ static char * gen(int len, char * token)
 
 int main() {
     char token[11];
-    unsigned int i = 0;
-    while (1) {
+    unsigned int i;
+
+    do {
         srand(i);
         gen(10, token);
         if (strcmp(token, "2118Jx9w3e") == 0) {
             printf("%d\n", i);
             return 0;
         }
-        i++;
-    }
+    } while (++i != 0);
+    printf("not found\n");
 }
